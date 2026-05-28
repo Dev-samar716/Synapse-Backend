@@ -1,5 +1,5 @@
 import systemInstruction from "../../../utils/systemPrompt.js";
-import callDeepSeekAPI from "../../../functions/callDeepSeek.js";   
+import callGroqAPI from "../../..../../../functions/callGroqAPI.js";
 
 const chatController = async (req, res) => {
     const { contents } = req.body;
@@ -7,7 +7,7 @@ const chatController = async (req, res) => {
     const systemPrompt = systemInstruction(); 
 
     try {
-        const data = await callDeepSeekAPI(systemPrompt, contents);
+        const data = await callGroqAPI(systemPrompt, contents);
         
         console.log("LLM response:", data);
 

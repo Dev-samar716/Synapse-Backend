@@ -1,10 +1,9 @@
 
 
-const callDeepSeekAPI = async (systemPrompt, contents) => {
-    const API_KEY = process.env.DEEPSEEK_API_KEY;
-    const url = "https://api.deepseek.com/v1/chat/completions";
+const callGroqAPI = async (systemPrompt, contents) => {
+    const API_KEY = process.env.GROQ_API_KEY.trim();
+    const url = "https://api.groq.com/openai/v1/chat/completions";
 
-    // Convert your Gemini-style contents to OpenAI format
     const messages = [];
 
     if (systemPrompt) {
@@ -12,7 +11,7 @@ const callDeepSeekAPI = async (systemPrompt, contents) => {
     }
 
     contents.forEach(item => {
-        if (item.parts && item.parts[0]?.text) {
+        if (item.parts?.[0]?.text) {
             messages.push({
                 role: item.role === "model" ? "assistant" : "user",
                 content: item.parts[0].text
@@ -28,7 +27,7 @@ const callDeepSeekAPI = async (systemPrompt, contents) => {
                 'Authorization': `Bearer ${API_KEY}`
             },
             body: JSON.stringify({
-                model: "deepseek-v4-flash",   
+                model: "llama-3.3-70b-versatile",   // very good free model
                 messages: messages,
                 max_tokens: 4000,
                 temperature: 0.8,
@@ -38,25 +37,24 @@ const callDeepSeekAPI = async (systemPrompt, contents) => {
         const data = await response.json();
 
         if (!response.ok) {
-            console.error("DeepSeek Error:", data.error?.message || data);
-            throw new Error(data.error?.message || "DeepSeek API call failed");
+            console.error("Groq Error:", data.error?.message || data);
+            throw new Error(data.error?.message || "Groq API failed");
         }
 
+        // Same structure as before
         return {
             candidates: [{
                 content: {
                     role: "model",
-                    parts: [{ 
-                        text: data.choices[0].message.content 
-                    }]
+                    parts: [{ text: data.choices[0].message.content }]
                 }
             }]
         };
 
     } catch (error) {
-        console.error("Error calling DeepSeek:", error);
+        console.error("Error calling Groq:", error);
         throw error;
     }
 };
 
-export default callDeepSeekAPI;
+export default callGroqAPI;
