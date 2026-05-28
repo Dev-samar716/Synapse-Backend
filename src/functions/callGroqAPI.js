@@ -27,7 +27,7 @@ const callGroqAPI = async (systemPrompt, contents) => {
                 'Authorization': `Bearer ${API_KEY}`
             },
             body: JSON.stringify({
-                model: "llama-3.3-70b-versatile",   // very good free model
+                model: "llama-3.3-70b-versatile", 
                 messages: messages,
                 max_tokens: 4000,
                 temperature: 0.8,
