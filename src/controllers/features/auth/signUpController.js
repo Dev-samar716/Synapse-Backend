@@ -24,10 +24,12 @@ const signUp = async(req, res) => {
         const token = generateToken(registeredUser.rows[0].id);
 
         res.cookie("token", token, {
-            sameSite: false,
-            httpOnly: true,
-            secure: 'lax'
-        })
+    httpOnly: true,
+    // On Render it will be true, on local machine it will be false
+    secure: process.env.NODE_ENV === "production", 
+    // On Render it will be 'none', on local machine it will be 'lax'
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax'
+});
 
         res.status(201).json({
             success: true,

@@ -34,11 +34,13 @@ const logIn = async(req, res) => {
 
         const token = generateToken(user.rows[0].id);
 
-        res.cookie("token", token, {
-            httpOnly: true,
-            sameSite: false,
-            secure: 'lax'
-        })
+       res.cookie("token", token, {
+    httpOnly: true,
+    // On Render it will be true, on local machine it will be false
+    secure: process.env.NODE_ENV === "production", 
+    // On Render it will be 'none', on local machine it will be 'lax'
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax'
+});
 
         res.status(201).json({
             success: true,
