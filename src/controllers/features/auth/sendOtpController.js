@@ -1,5 +1,5 @@
 import generateOtp from "../../../utils/otp.js";
-import transporter from "../../../config/nodemailerConfig.js";
+import resend from "../../../config/resendConfig.js";
 import pool from "../../../config/db.js"
 
 const sendOtp = async(req, res) => {
@@ -38,7 +38,7 @@ const sendOtp = async(req, res) => {
         expires_at = EXCLUDED.expires_at`, 
         [email, otp_code, created_at, expires_at]);
 
-        transporter.sendMail(mailOptions);
+        await resend.emails.send(mailOptions);
 
         res.status(201).json({ success: true, message: "OTP sent successfully!" });
     } catch(error) {
