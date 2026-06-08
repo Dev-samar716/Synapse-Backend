@@ -29,7 +29,7 @@ const callGroqAPI = async (systemPrompt, contents) => {
             body: JSON.stringify({
                 model: "llama-3.3-70b-versatile", 
                 messages: messages,
-                max_tokens: 4000,
+                max_tokens: 1200,
                 temperature: 0.8,
             })
         });
