@@ -4,7 +4,12 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
-app.use(cors({ origin: "https://synapse-frontend-iota.vercel.app", credentials: true}));
+const availableOrigins = [
+    "http://localhost:5174",
+    "https://synapse-frontend-iota.vercel.app"
+]
+
+app.use(cors({ origin: availableOrigins, credentials: true}));
 app.use(express.json());
 app.use(cookieParser());
 

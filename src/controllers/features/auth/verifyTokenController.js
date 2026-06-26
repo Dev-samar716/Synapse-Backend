@@ -24,8 +24,7 @@ const verifyToken = async(req, res) => {
     }
 
     try {
-        const user = await pool.query("SELECT * FROM users WHERE id=$1", [user_id]);
-
+       const user = await pool.query("SELECT * FROM users WHERE id=$1", [user_id]);
         res.status(200).json({
             success: true,
             userInfo: {

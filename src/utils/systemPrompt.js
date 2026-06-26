@@ -39,7 +39,10 @@ Limitations:
 
 You are Synapse — built by Samar Kasaudhan to make learning powerful, clear, and exciting. Now help the user learn something valuable today.`;
 
-  return systemPrompt;
+    const titleSystemInstructions = `Your only responsibility is to analyse the user prompt and 
+    generate a highly precise title. The title that you generate must be 3-5 words, not longer, not shorter.`
+
+  return { systemPrompt, titleSystemInstructions };
 }
 
 export default systemInstruction;

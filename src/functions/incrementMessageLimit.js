@@ -1,4 +1,4 @@
-
+import pool from "../config/db.js";
 
 const incrementMessageLimit = async(user_id) => {
     let userMessageLimit;

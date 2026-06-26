@@ -1,4 +1,4 @@
-import pool from "../../../config/db"
+import pool from "../config/db.js"
 
 const checkMessageLimit = async(user_id) => {
     try {
@@ -7,7 +7,7 @@ const checkMessageLimit = async(user_id) => {
         if(userMessageLimit.rows.length === 0) return true;
 
         if(userMessageLimit.rows.length > 0) {
-            const record = userMessageLimit.rows[0];
+        const record = userMessageLimit.rows[0];
         const now = Date.now();
         const lastReset = Number(record.last_reset);
 
